@@ -5,8 +5,9 @@ jAsciiDoctor
 
 Requirements:
 
-* JRuby
-* Asciidoctor gem
+* [JRuby](http://www.jruby.org)
+* JRubyFX gem => 'jruby -S gem install jrubyfx'
+* Asciidoctor gem => 'jruby -S gem install asciidoctor'
 * [Apache FOP](http://xmlgraphics.apache.org/fop)
 
 ## AsciiDoc
