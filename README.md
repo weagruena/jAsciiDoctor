@@ -52,6 +52,7 @@ Please use 'Save' to backup your changes, the use of 'Preview' button saves auto
 The buttons above the right panel start the according operations.
 
 **Preview** -> Creates an preview of the opened file (HTML without images ...)
+
 **Full view** -> Creates an opens the HTML output (with images ...)
 
 ### Export
