@@ -1,7 +1,7 @@
 jAsciiDoctor
 ============
 
-Editor / converter for AsciiDoc (based on AsciiDoctor)
+*Editor / converter for AsciiDoc (based on AsciiDoctor + FOP)*
 
 ## AsciiDoc
 
@@ -16,7 +16,7 @@ AsciiDoc is free software and is licenced under the terms of the GNU General Pub
 [Asciidoctor](http://asciidoctor.org)  is a pure Ruby processor for converting http://www.methods.co.nz/asciidoc[AsciiDoc] source files and strings into HTML 5, DocBook 4.5 and other formats. It�s published as a RubyGem and is available under the MIT open source license.
 
 
-## Usefull documentation
+### Usefull documentation
 
 * [AsciiDoctor docs](http://asciidoctor.org/docs)
 
@@ -37,9 +37,9 @@ You can create, edit or view these documents.
 
 
 
-## Preview / Full view
+### Preview / Full view
 
-## Export
+### Export
 
 * Export (XML)  =>  Docbook (XML)
 * Export (PDF)  =>  PDF (Convert XML > PDF)
