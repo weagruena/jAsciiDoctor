@@ -1,0 +1,142 @@
+# jAsciiDoctor
+#!/usr/bin/env jruby
+#encoding: utf-8
+#
+include Java
+import javax.swing.JOptionPane
+require 'jrubyfx'
+require 'asciidoctor'
+require 'erb'
+
+fxml_root File.dirname(__FILE__)
+PROG = Dir.pwd
+AUTHOR = "Andreas Weber"
+MAIL = "ruby@gruena.net"
+VERSION = "1.0"
+TITLE = "jAsciiDoctor" + " #{VERSION}"
+
+class GUI < JRubyFX::Application
+	
+        def start(stage)
+		stage.title = TITLE
+		stage.fxml GUIController	
+		stage.show()
+        end
+end
+
+class GUIController
+	include JRubyFX::Controller
+	fxml "jAsciiDoctor.fxml"	
+	
+	def about
+		msg = "#{TITLE}\nby #{AUTHOR}\n<#{MAIL}>"
+		JOptionPane.showMessageDialog(nil, msg, "About jAsciiDoctor", JOptionPane::INFORMATION_MESSAGE)
+	end
+	
+	def help	
+		html = 'help/help.html'
+		system("start #{html}")		
+	end	
+	
+	def newFile
+		@editor.text = "= Title\nauthor <email>\nrevision, date"
+		@file = saveFileAs()		
+		@txtFile.text = @file.to_s
+	end
+	
+	def openFile(f)
+		@file = f
+		@txtFile.text = @file.to_s
+		File.open(@file.to_s, "r:utf-8") { |f| @text = f.read }
+		@editor.text = @text
+		@mnClean.disable = false
+		@mnXML.disable = false
+		@mnPDF.disable = false
+	end
+		
+	def openFileDlg
+		chooser = FileChooser.new()
+		chooser.setTitle("Select Asciidoc file")
+		chooser.add_extension_filter("ADOC", "*.adoc")
+		file = chooser.showOpenDialog(nil)
+		openFile(file)
+	end
+	
+	def saveFile
+		File.open(@file.to_s, "w") { |f| f.puts @editor.text}
+	end
+	
+	def saveFileAs
+		chooser = FileChooser.new()
+		chooser.setTitle("Save file as (*.adoc)")
+		chooser.add_extension_filter("ADOC", "*.adoc")
+		file = chooser.showSaveDialog(nil)
+		file = file.to_s + ".adoc" if File.extname(file.to_s) == ""
+		File.open(file.to_s, "w+") { |f| f.puts @editor.text}
+		return file
+	end
+	
+	def closeFile
+		ret = JOptionPane.showConfirmDialog(nil, "Do you want to save ?", "jAsciiDoctor", JOptionPane::YES_NO_OPTION)
+		saveFile() if ret == 0
+		@txtFile.text = "Open Asciidoc file ..."
+		@editor.text = ""
+		@html = ""
+		@preview.getEngine.loadContent(@html)
+	end
+	
+	def preview
+		saveFile()
+		asd = @file.to_s.gsub(/\\/, '/')
+		html = asd.gsub(/.adoc/, '.html')
+		Asciidoctor.render_file(asd, 
+			:in_place => true, 
+			:icons => true, 
+			:backend => 'html5'
+		)
+		File.open(html, "r:utf-8") { |f| @html = f.read }
+		@preview.getEngine.loadContent(@html)
+	end
+	
+	def clean
+		asd = @file.to_s.gsub(/\\/, '/')
+		File.delete(asd.gsub(/.adoc/, '.html')) if File.exists?(asd.gsub(/.adoc/, '.html'))
+		File.delete(asd.gsub(/.adoc/, '.xml')) if File.exists?(asd.gsub(/.adoc/, '.xml'))
+		File.delete(asd.gsub(/.adoc/, '.pdf')) if File.exists?(asd.gsub(/.adoc/, '.pdf'))
+	end
+	
+	def fullview
+		asd = @file.to_s.gsub(/\\/, '/')
+		html = asd.gsub(/.adoc/, '.html')
+		system("start #{html}")		
+	end
+	
+	def exportXML
+		saveFile()
+		asd = @file.to_s.gsub(/\\/, '/')
+		xml = asd.gsub(/.adoc/, '.xml')
+		Asciidoctor.render_file(asd, 
+			:in_place => true, 
+			:icons => true,
+			:backend => 'docbook5'
+		)
+		JOptionPane.showMessageDialog(nil, "Docbook export finished => #{xml}", 
+			"jAsciiDoctor", JOptionPane::INFORMATION_MESSAGE)
+	end
+	
+	def exportPDF
+		exportXML()
+		asd = @file.to_s.gsub(/\\/, '/')
+		xml = asd.gsub(/.adoc/, '.xml')
+		#~ xsl = "g:/Tools/OpenWriting/docbook_xsl/fo/docbook.xsl"
+		xsl = File.dirname(__FILE__) + "/xsl/fo/docbook.xsl"
+		pdf = asd.gsub(/.adoc/, '.pdf')
+		cmd = "fop -xml #{xml} -xsl #{xsl} -pdf #{pdf}"
+		system(cmd)
+		JOptionPane.showMessageDialog(nil, "PDF export finished => #{pdf}", 
+			"jAsciiDoctor", JOptionPane::INFORMATION_MESSAGE)
+		system("start #{pdf}")
+	end
+end
+
+GUI.launch

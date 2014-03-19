@@ -1,0 +1,46 @@
+/*controlStyle.css */
+.root{
+-fx-background-color: #67644e;
+-fx-background-radius: 10;
+-fx-padding: 10;
+}
+.menu-bar{
+-fx-background-color: orange;
+-fx-padding: 5;	
+}
+.menu{	
+-fx-padding: 2;	
+}
+.menu-item{
+-fx-font: 14pt "Arial Black";
+-fx-text-fill: white;
+}
+.label{
+-fx-font: 14pt "Arial Black";
+-fx-text-fill: white;
+-fx-background-color: tomato;	
+-fx-padding: 5;
+}
+.file{
+-fx-font: 12pt "Arial";	
+-fx-text-fill: black;
+-fx-background-color: tomato;
+}
+.button{
+-fx-font: 14pt "Arial Black";
+-fx-text-fill: white;
+-fx-background-color: tomato;
+-fx-background-radius: 30;
+-fx-background-insets: 0;
+}
+.text-area{
+-fx-color: orange;
+-fx-background-color: lightyellow;	
+}
+.text-input{
+-fx-font: 14pt "Arial";
+-fx-text-fill: navy;
+}
+.web-view{
+-fx-background-color: wheat;	
+}

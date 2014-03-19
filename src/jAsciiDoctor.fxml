@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.web.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-1.0" maxWidth="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="text-area, web-view" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <VBox prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+        <MenuBar>
+          <menus>
+            <Menu mnemonicParsing="false" style="" text="File">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#newFile" text="New" />
+                <MenuItem mnemonicParsing="false" onAction="#openFileDlg" text="Open" />
+                <MenuItem mnemonicParsing="false" onAction="#saveFile" text="Save" />
+                <MenuItem mnemonicParsing="false" onAction="#saveFileAs" text="Save as ..." />
+                <MenuItem mnemonicParsing="false" onAction="#closeFile" text="Close" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" style="" text="Export">
+              <items>
+                <MenuItem disable="true" mnemonicParsing="false" onAction="#clean" text="** Cleanup **" fx:id="mnClean" />
+                <SeparatorMenuItem mnemonicParsing="false" />
+                <MenuItem disable="true" mnemonicParsing="false" onAction="#exportXML" text="Docbook (XML)" fx:id="mnXML" />
+                <MenuItem disable="true" mnemonicParsing="false" onAction="#exportPDF" text="PDF" fx:id="mnPDF" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#about" text="About" />
+                <MenuItem mnemonicParsing="false" onAction="#help" text="Program help" />
+              </items>
+            </Menu>
+          </menus>
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </MenuBar>
+        <SplitPane dividerPositions="0.5" focusTraversable="true" prefHeight="45.0" prefWidth="798.0">
+          <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="-1.0" prefWidth="100.0">
+              <children>
+                <Label fx:id="txtFile" prefHeight="43.0" prefWidth="395.0" style="" styleClass="file" text="Open Asciidoc file ..." AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+              </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="-1.0" prefWidth="100.0">
+              <children>
+                <Button layoutX="14.0" layoutY="8.0" mnemonicParsing="false" onAction="#preview" text="Preview" />
+                <Button layoutX="114.0" layoutY="8.0" mnemonicParsing="false" onAction="#fullview" text="Full view" />
+              </children>
+            </AnchorPane>
+          </items>
+        </SplitPane>
+        <SplitPane dividerPositions="0.5" focusTraversable="true" prefHeight="-1.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
+          <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+              <children>
+                <TextArea fx:id="editor" prefHeight="550.0" prefWidth="397.0" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+              </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+              <children>
+                <WebView fx:id="preview" prefHeight="550.0" prefWidth="395.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+              </children>
+            </AnchorPane>
+          </items>
+        </SplitPane>
+      </children>
+    </VBox>
+  </children>
+  <stylesheets>
+    <URL value="@style.css" />
+  </stylesheets>
+</AnchorPane>
