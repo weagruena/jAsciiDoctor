@@ -1,7 +1,13 @@
 jAsciiDoctor
 ============
 
-*Editor / converter for AsciiDoc (based on AsciiDoctor + FOP)*
+**Editor / converter for AsciiDoc (based on AsciiDoctor + FOP)**
+
+Requirements:
+
+* JRuby
+* Asciidoctor gem
+* [Apache FOP](http://xmlgraphics.apache.org/fop)
 
 ## AsciiDoc
 
